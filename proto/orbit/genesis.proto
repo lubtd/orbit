@@ -3,6 +3,7 @@ package lubtd.orbit.orbit;
 
 import "gogoproto/gogo.proto";
 import "orbit/params.proto";
+import "orbit/star.proto";
 // this line is used by starport scaffolding # genesis/proto/import
 
 option go_package = "github.com/lubtd/orbit/x/orbit/types";
@@ -10,5 +11,7 @@ option go_package = "github.com/lubtd/orbit/x/orbit/types";
 // GenesisState defines the orbit module's genesis state.
 message GenesisState {
   Params params = 1 [(gogoproto.nullable) = false];
+  repeated Star starList = 2 [(gogoproto.nullable) = false];
+  uint64 starCount = 3;
   // this line is used by starport scaffolding # genesis/proto/state
 }

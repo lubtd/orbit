@@ -5,6 +5,7 @@ import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 import "cosmos/base/query/v1beta1/pagination.proto";
 import "orbit/params.proto";
+import "orbit/star.proto";
 // this line is used by starport scaffolding # 1
 
 option go_package = "github.com/lubtd/orbit/x/orbit/types";
@@ -15,7 +16,17 @@ service Query {
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
     option (google.api.http).get = "/lubtd/orbit/orbit/params";
   }
-  // this line is used by starport scaffolding # 2
+  // Queries a Star by id.
+	rpc Star(QueryGetStarRequest) returns (QueryGetStarResponse) {
+		option (google.api.http).get = "/lubtd/orbit/orbit/star/{id}";
+	}
+
+	// Queries a list of Star items.
+	rpc StarAll(QueryAllStarRequest) returns (QueryAllStarResponse) {
+		option (google.api.http).get = "/lubtd/orbit/orbit/star";
+	}
+
+// this line is used by starport scaffolding # 2
 }
 
 // QueryParamsRequest is request type for the Query/Params RPC method.
@@ -25,6 +36,23 @@ message QueryParamsRequest {}
 message QueryParamsResponse {
   // params holds all the parameters of this module.
   Params params = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryGetStarRequest {
+	uint64 id = 1;
+}
+
+message QueryGetStarResponse {
+	Star Star = 1 [(gogoproto.nullable) = false];
+}
+
+message QueryAllStarRequest {
+	cosmos.base.query.v1beta1.PageRequest pagination = 1;
+}
+
+message QueryAllStarResponse {
+	repeated Star Star = 1 [(gogoproto.nullable) = false];
+	cosmos.base.query.v1beta1.PageResponse pagination = 2;
 }
 
 // this line is used by starport scaffolding # 3

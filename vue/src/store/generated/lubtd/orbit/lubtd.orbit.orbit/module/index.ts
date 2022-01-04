@@ -1,0 +1,66 @@
+// THIS FILE IS GENERATED AUTOMATICALLY. DO NOT MODIFY.
+
+import { StdFee } from "@cosmjs/launchpad";
+import { SigningStargateClient } from "@cosmjs/stargate";
+import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
+import { Api } from "./rest";
+import { MsgCreateStar } from "./types/orbit/tx";
+import { MsgDeleteStar } from "./types/orbit/tx";
+import { MsgUpdateStar } from "./types/orbit/tx";
+
+
+const types = [
+  ["/lubtd.orbit.orbit.MsgCreateStar", MsgCreateStar],
+  ["/lubtd.orbit.orbit.MsgDeleteStar", MsgDeleteStar],
+  ["/lubtd.orbit.orbit.MsgUpdateStar", MsgUpdateStar],
+  
+];
+export const MissingWalletError = new Error("wallet is required");
+
+export const registry = new Registry(<any>types);
+
+const defaultFee = {
+  amount: [],
+  gas: "200000",
+};
+
+interface TxClientOptions {
+  addr: string
+}
+
+interface SignAndBroadcastOptions {
+  fee: StdFee,
+  memo?: string
+}
+
+const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions = { addr: "http://localhost:26657" }) => {
+  if (!wallet) throw MissingWalletError;
+  let client;
+  if (addr) {
+    client = await SigningStargateClient.connectWithSigner(addr, wallet, { registry });
+  }else{
+    client = await SigningStargateClient.offline( wallet, { registry });
+  }
+  const { address } = (await wallet.getAccounts())[0];
+
+  return {
+    signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
+    msgCreateStar: (data: MsgCreateStar): EncodeObject => ({ typeUrl: "/lubtd.orbit.orbit.MsgCreateStar", value: MsgCreateStar.fromPartial( data ) }),
+    msgDeleteStar: (data: MsgDeleteStar): EncodeObject => ({ typeUrl: "/lubtd.orbit.orbit.MsgDeleteStar", value: MsgDeleteStar.fromPartial( data ) }),
+    msgUpdateStar: (data: MsgUpdateStar): EncodeObject => ({ typeUrl: "/lubtd.orbit.orbit.MsgUpdateStar", value: MsgUpdateStar.fromPartial( data ) }),
+    
+  };
+};
+
+interface QueryClientOptions {
+  addr: string
+}
+
+const queryClient = async ({ addr: addr }: QueryClientOptions = { addr: "http://localhost:1317" }) => {
+  return new Api({ baseUrl: addr });
+};
+
+export {
+  txClient,
+  queryClient,
+};

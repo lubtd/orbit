@@ -1,0 +1,10 @@
+syntax = "proto3";
+package lubtd.orbit.orbit;
+
+option go_package = "github.com/lubtd/orbit/x/orbit/types";
+
+message Star {
+  uint64 id = 1;
+  string name = 2; 
+  string creator = 3;
+}

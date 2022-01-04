@@ -6,7 +6,6 @@ require (
 	github.com/cosmos/cosmos-sdk v0.44.5
 	github.com/cosmos/ibc-go v1.2.2
 	github.com/gogo/protobuf v1.3.3
-	github.com/google/go-cmp v0.5.6 // indirect
 	github.com/gorilla/mux v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway v1.16.0
 	github.com/spf13/cast v1.3.1
@@ -21,6 +20,7 @@ require (
 
 require (
 	github.com/golang/protobuf v1.5.2
+	github.com/tendermint/spn v0.1.1-0.20220104141843-359e1f1dba15
 	gopkg.in/yaml.v2 v2.4.0
 )
 

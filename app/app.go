@@ -93,7 +93,12 @@ import (
 	orbitmodule "github.com/lubtd/orbit/x/orbit"
 	orbitmodulekeeper "github.com/lubtd/orbit/x/orbit/keeper"
 	orbitmoduletypes "github.com/lubtd/orbit/x/orbit/types"
+
 	// this line is used by starport scaffolding # stargate/app/moduleImport
+
+	monitoringpmodule "github.com/tendermint/spn/x/monitoringp"
+	monitoringpmodulekeeper "github.com/tendermint/spn/x/monitoringp/keeper"
+	monitoringpmoduletypes "github.com/tendermint/spn/x/monitoringp/types"
 )
 
 const (
@@ -144,6 +149,7 @@ var (
 		transfer.AppModuleBasic{},
 		vesting.AppModuleBasic{},
 		orbitmodule.AppModuleBasic{},
+		monitoringpmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -213,8 +219,12 @@ type App struct {
 	ScopedIBCKeeper      capabilitykeeper.ScopedKeeper
 	ScopedTransferKeeper capabilitykeeper.ScopedKeeper
 
+	ScopedMonitoringKeeper capabilitykeeper.ScopedKeeper
+
 	OrbitKeeper orbitmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
+
+	MonitoringKeeper monitoringpmodulekeeper.Keeper
 
 	// mm is the module manager
 	mm *module.Manager
@@ -251,6 +261,7 @@ func New(
 		govtypes.StoreKey, paramstypes.StoreKey, ibchost.StoreKey, upgradetypes.StoreKey, feegrant.StoreKey,
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		orbitmoduletypes.StoreKey,
+		monitoringpmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -278,6 +289,7 @@ func New(
 	// grant capabilities for the ibc and ibc-transfer modules
 	scopedIBCKeeper := app.CapabilityKeeper.ScopeToModule(ibchost.ModuleName)
 	scopedTransferKeeper := app.CapabilityKeeper.ScopeToModule(ibctransfertypes.ModuleName)
+
 	// this line is used by starport scaffolding # stargate/app/scopedKeeper
 
 	// add keepers
@@ -357,11 +369,24 @@ func New(
 	)
 	orbitModule := orbitmodule.NewAppModule(appCodec, app.OrbitKeeper, app.AccountKeeper, app.BankKeeper)
 
+	scopedMonitoringKeeper := app.CapabilityKeeper.ScopeToModule(monitoringpmoduletypes.ModuleName)
+	app.MonitoringKeeper = *monitoringpmodulekeeper.NewKeeper(
+		appCodec,
+		keys[monitoringpmoduletypes.StoreKey],
+		keys[monitoringpmoduletypes.MemStoreKey],
+		app.GetSubspace(monitoringpmoduletypes.ModuleName),
+		app.IBCKeeper.ChannelKeeper,
+		&app.IBCKeeper.PortKeeper,
+		scopedMonitoringKeeper,
+	)
+	monitoringModule := monitoringpmodule.NewAppModule(appCodec, app.MonitoringKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
 	ibcRouter := ibcporttypes.NewRouter()
 	ibcRouter.AddRoute(ibctransfertypes.ModuleName, transferModule)
+	ibcRouter.AddRoute(monitoringpmoduletypes.ModuleName, monitoringModule)
 	// this line is used by starport scaffolding # ibc/app/router
 	app.IBCKeeper.SetRouter(ibcRouter)
 
@@ -396,6 +421,7 @@ func New(
 		params.NewAppModule(app.ParamsKeeper),
 		transferModule,
 		orbitModule,
+		monitoringModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -407,6 +433,7 @@ func New(
 		upgradetypes.ModuleName, capabilitytypes.ModuleName, minttypes.ModuleName, distrtypes.ModuleName, slashingtypes.ModuleName,
 		evidencetypes.ModuleName, stakingtypes.ModuleName, ibchost.ModuleName,
 		feegrant.ModuleName,
+		monitoringpmoduletypes.ModuleName,
 	)
 
 	app.mm.SetOrderEndBlockers(crisistypes.ModuleName, govtypes.ModuleName, stakingtypes.ModuleName)
@@ -431,6 +458,7 @@ func New(
 		evidencetypes.ModuleName,
 		ibctransfertypes.ModuleName,
 		orbitmoduletypes.ModuleName,
+		monitoringpmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -454,6 +482,7 @@ func New(
 		ibc.NewAppModule(app.IBCKeeper),
 		transferModule,
 		orbitModule,
+		monitoringModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -491,6 +520,7 @@ func New(
 
 	app.ScopedIBCKeeper = scopedIBCKeeper
 	app.ScopedTransferKeeper = scopedTransferKeeper
+	app.ScopedMonitoringKeeper = scopedMonitoringKeeper
 	// this line is used by starport scaffolding # stargate/app/beforeInitReturn
 
 	return app
@@ -642,6 +672,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibctransfertypes.ModuleName)
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(orbitmoduletypes.ModuleName)
+	paramsKeeper.Subspace(monitoringpmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

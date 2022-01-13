@@ -14,6 +14,7 @@ client:
 faucet:
   name: bob
   coins: ["5token", "100000stake"]
+  port: 4501
 host:
   rpc: ":26659"
   p2p: ":26658"

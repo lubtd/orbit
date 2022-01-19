@@ -1,0 +1,18 @@
+#!/bin/bash
+# execute necessary operations from go-relayer to connect orbit with spn
+
+rly config init
+rly config add-chains ./ibc-chains
+rly config add-paths ./ibc-paths
+
+rly keys restore spn steve "initial aisle blush gift shuffle hat solar dove dwarf soup credit acid update seed mercy thumb swear main verb image dove rose chat inmate"
+
+rly keys restore orbit alice "invite velvet shuffle day shed ramp page business index curve voice question crunch fence pepper olive honey train volcano crime very oil saddle average"
+
+rly chains list
+rly paths list
+
+rly tx link monitoring -d -o 3s
+
+rly tx relay-pkts monitoring -d
+rly tx relay-acks monitoring -d

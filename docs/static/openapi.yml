@@ -14123,7 +14123,19 @@ paths:
 
                         signatures required by gogoproto.
                     peer:
-                      type: string
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        tcpAddress:
+                          type: string
+                        httpTunnel:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            address:
+                              type: string
               pagination:
                 type: object
                 properties:
@@ -14273,7 +14285,19 @@ paths:
 
                       signatures required by gogoproto.
                   peer:
-                    type: string
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      tcpAddress:
+                        type: string
+                      httpTunnel:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          address:
+                            type: string
         default:
           description: An unexpected error response.
           schema:
@@ -14494,7 +14518,19 @@ paths:
 
                                 signatures required by gogoproto.
                             peer:
-                              type: string
+                              type: object
+                              properties:
+                                id:
+                                  type: string
+                                tcpAddress:
+                                  type: string
+                                httpTunnel:
+                                  type: object
+                                  properties:
+                                    name:
+                                      type: string
+                                    address:
+                                      type: string
                         accountRemoval:
                           type: object
                           properties:
@@ -14759,7 +14795,19 @@ paths:
 
                               signatures required by gogoproto.
                           peer:
-                            type: string
+                            type: object
+                            properties:
+                              id:
+                                type: string
+                              tcpAddress:
+                                type: string
+                              httpTunnel:
+                                type: object
+                                properties:
+                                  name:
+                                    type: string
+                                  address:
+                                    type: string
                       accountRemoval:
                         type: object
                         properties:
@@ -15083,6 +15131,208 @@ paths:
           type: string
       tags:
         - Query
+  /tendermint/spn/monitoringc/params:
+    get:
+      summary: Parameters queries the parameters of the module.
+      operationId: TendermintSpnMonitoringcParams
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              params:
+                description: params holds all the parameters of this module.
+                type: object
+            description: >-
+              QueryParamsResponse is response type for the Query/Params RPC
+              method.
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      tags:
+        - Query
+  '/tendermint/spn/monitoringc/verified_client_ids/{launchID}':
+    get:
+      summary: Queries a list of VerifiedClientIds items.
+      operationId: TendermintSpnMonitoringcVerifiedClientIds
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              clientIds:
+                type: array
+                items:
+                  type: string
+              pagination:
+                type: object
+                properties:
+                  nextKey:
+                    type: string
+                    format: byte
+                    title: |-
+                      next_key is the key to be passed to PageRequest.key to
+                      query the next page most efficiently
+                  total:
+                    type: string
+                    format: uint64
+                    title: >-
+                      total is total number of results available if
+                      PageRequest.count_total
+
+                      was set, its value is undefined otherwise
+                description: >-
+                  PageResponse is to be embedded in gRPC response messages where
+                  the
+
+                  corresponding request message has used PageRequest.
+
+                   message SomeResponse {
+                           repeated Bar results = 1;
+                           PageResponse page = 2;
+                   }
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: launchID
+          in: path
+          required: true
+          type: string
+          format: uint64
+        - name: pagination.key
+          description: |-
+            key is a value returned in PageResponse.next_key to begin
+            querying the next page most efficiently. Only one of offset or key
+            should be set.
+          in: query
+          required: false
+          type: string
+          format: byte
+        - name: pagination.offset
+          description: >-
+            offset is a numeric offset that can be used when key is unavailable.
+
+            It is less efficient than using key. Only one of offset or key
+            should
+
+            be set.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.limit
+          description: >-
+            limit is the total number of results to be returned in the result
+            page.
+
+            If left empty it will default to a value to be set by each app.
+          in: query
+          required: false
+          type: string
+          format: uint64
+        - name: pagination.countTotal
+          description: >-
+            count_total is set to true  to indicate that the result set should
+            include
+
+            a count of the total number of items available for pagination in
+            UIs.
+
+            count_total is only respected when offset is used. It is ignored
+            when key
+
+            is set.
+          in: query
+          required: false
+          type: boolean
+        - name: pagination.reverse
+          description: >-
+            reverse is set to true if results are to be returned in the
+            descending order.
+
+
+            Since: cosmos-sdk 0.43
+          in: query
+          required: false
+          type: boolean
+      tags:
+        - Query
+  '/tendermint/spn/profile/consensus_key_nonce/{consensusAddress}':
+    get:
+      summary: Queries a ConsensusKeyNonce by consensus address.
+      operationId: TendermintSpnProfileConsensusKeyNonce
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              consensusKeyNonce:
+                type: object
+                properties:
+                  consensusAddress:
+                    type: string
+                  nonce:
+                    type: string
+                    format: uint64
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: consensusAddress
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
   /tendermint/spn/profile/coordinator:
     get:
       summary: Queries a list of coordinator items.
@@ -15329,6 +15579,8 @@ paths:
                   properties:
                     address:
                       type: string
+                    consensusAddress:
+                      type: string
                     description:
                       type: object
                       properties:
@@ -15448,9 +15700,7 @@ paths:
         - Query
   '/tendermint/spn/profile/validator/{address}':
     get:
-      summary: |-
-        this line is used by starport scaffolding # 2
-        Queries a validator by index.
+      summary: Queries a validator by index.
       operationId: TendermintSpnProfileValidator
       responses:
         '200':
@@ -15462,6 +15712,8 @@ paths:
                 type: object
                 properties:
                   address:
+                    type: string
+                  consensusAddress:
                     type: string
                   description:
                     type: object
@@ -15496,6 +15748,48 @@ paths:
                   additionalProperties: {}
       parameters:
         - name: address
+          in: path
+          required: true
+          type: string
+      tags:
+        - Query
+  '/tendermint/spn/profile/validator_by_cons_address/{consensusAddress}':
+    get:
+      summary: Queries a ValidatorByConsAddress by consensus address.
+      operationId: TendermintSpnProfileValidatorByConsAddress
+      responses:
+        '200':
+          description: A successful response.
+          schema:
+            type: object
+            properties:
+              validatorByConsAddress:
+                type: object
+                properties:
+                  consensusAddress:
+                    type: string
+                  validatorAddress:
+                    type: string
+        default:
+          description: An unexpected error response.
+          schema:
+            type: object
+            properties:
+              code:
+                type: integer
+                format: int32
+              message:
+                type: string
+              details:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    '@type':
+                      type: string
+                  additionalProperties: {}
+      parameters:
+        - name: consensusAddress
           in: path
           required: true
           type: string
@@ -23783,7 +24077,19 @@ definitions:
           NOTE: The amount field is an Int which implements the custom method
           signatures required by gogoproto.
       peer:
-        type: string
+        type: object
+        properties:
+          id:
+            type: string
+          tcpAddress:
+            type: string
+          httpTunnel:
+            type: object
+            properties:
+              name:
+                type: string
+              address:
+                type: string
   tendermint.spn.launch.InitialGenesis:
     type: object
     properties:
@@ -23868,6 +24174,27 @@ definitions:
         type: string
         format: uint64
     description: Params defines the parameters for the staking module.
+  tendermint.spn.launch.Peer:
+    type: object
+    properties:
+      id:
+        type: string
+      tcpAddress:
+        type: string
+      httpTunnel:
+        type: object
+        properties:
+          name:
+            type: string
+          address:
+            type: string
+  tendermint.spn.launch.Peer.HTTPTunnel:
+    type: object
+    properties:
+      name:
+        type: string
+      address:
+        type: string
   tendermint.spn.launch.QueryAllChainResponse:
     type: object
     properties:
@@ -24038,7 +24365,19 @@ definitions:
 
                 signatures required by gogoproto.
             peer:
-              type: string
+              type: object
+              properties:
+                id:
+                  type: string
+                tcpAddress:
+                  type: string
+                httpTunnel:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    address:
+                      type: string
       pagination:
         type: object
         properties:
@@ -24203,7 +24542,19 @@ definitions:
 
                         signatures required by gogoproto.
                     peer:
-                      type: string
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        tcpAddress:
+                          type: string
+                        httpTunnel:
+                          type: object
+                          properties:
+                            name:
+                              type: string
+                            address:
+                              type: string
                 accountRemoval:
                   type: object
                   properties:
@@ -24443,7 +24794,19 @@ definitions:
 
               signatures required by gogoproto.
           peer:
-            type: string
+            type: object
+            properties:
+              id:
+                type: string
+              tcpAddress:
+                type: string
+              httpTunnel:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  address:
+                    type: string
   tendermint.spn.launch.QueryGetRequestResponse:
     type: object
     properties:
@@ -24579,7 +24942,19 @@ definitions:
 
                       signatures required by gogoproto.
                   peer:
-                    type: string
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      tcpAddress:
+                        type: string
+                      httpTunnel:
+                        type: object
+                        properties:
+                          name:
+                            type: string
+                          address:
+                            type: string
               accountRemoval:
                 type: object
                 properties:
@@ -24797,7 +25172,19 @@ definitions:
 
                   signatures required by gogoproto.
               peer:
-                type: string
+                type: object
+                properties:
+                  id:
+                    type: string
+                  tcpAddress:
+                    type: string
+                  httpTunnel:
+                    type: object
+                    properties:
+                      name:
+                        type: string
+                      address:
+                        type: string
           accountRemoval:
             type: object
             properties:
@@ -24924,7 +25311,19 @@ definitions:
 
               signatures required by gogoproto.
           peer:
-            type: string
+            type: object
+            properties:
+              id:
+                type: string
+              tcpAddress:
+                type: string
+              httpTunnel:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  address:
+                    type: string
       accountRemoval:
         type: object
         properties:
@@ -25048,6 +25447,135 @@ definitions:
           vested
 
           once end time is reached
+  tendermint.spn.ibctypes.ConsensusState:
+    type: object
+    properties:
+      nextValidatorsHash:
+        type: string
+      timestamp:
+        type: string
+      root:
+        type: object
+        properties:
+          hash:
+            type: string
+        title: MerkelRool represents a Merkel Root in ConsensusState
+    title: >-
+      ConsensusState represents a Consensus State
+
+      it is compatible with the dumped state from `appd q ibc client
+      self-consensus-state` command
+  tendermint.spn.ibctypes.MerkelRool:
+    type: object
+    properties:
+      hash:
+        type: string
+    title: MerkelRool represents a Merkel Root in ConsensusState
+  tendermint.spn.ibctypes.PubKey:
+    type: object
+    properties:
+      type:
+        type: string
+      value:
+        type: string
+    title: PubKey represents a public key in Validator
+  tendermint.spn.ibctypes.Validator:
+    type: object
+    properties:
+      proposerPriority:
+        type: string
+      votingPower:
+        type: string
+      pubKey:
+        type: object
+        properties:
+          type:
+            type: string
+          value:
+            type: string
+        title: PubKey represents a public key in Validator
+    title: Validator represents a validator in ValSet
+  tendermint.spn.ibctypes.ValidatorSet:
+    type: object
+    properties:
+      validators:
+        type: array
+        items:
+          type: object
+          properties:
+            proposerPriority:
+              type: string
+            votingPower:
+              type: string
+            pubKey:
+              type: object
+              properties:
+                type:
+                  type: string
+                value:
+                  type: string
+              title: PubKey represents a public key in Validator
+          title: Validator represents a validator in ValSet
+    title: >-
+      ValidatorSet represents a Validator Set
+
+      it is compatible with the dumped set from `appd q tendermint-validator-set
+      n` command
+  tendermint.spn.monitoringc.MsgCreateClientResponse:
+    type: object
+    properties:
+      clientID:
+        type: string
+  tendermint.spn.monitoringc.Params:
+    type: object
+    description: Params defines the parameters for the module.
+  tendermint.spn.monitoringc.QueryParamsResponse:
+    type: object
+    properties:
+      params:
+        description: params holds all the parameters of this module.
+        type: object
+    description: QueryParamsResponse is response type for the Query/Params RPC method.
+  tendermint.spn.monitoringc.QueryVerifiedClientIdsResponse:
+    type: object
+    properties:
+      clientIds:
+        type: array
+        items:
+          type: string
+      pagination:
+        type: object
+        properties:
+          nextKey:
+            type: string
+            format: byte
+            title: |-
+              next_key is the key to be passed to PageRequest.key to
+              query the next page most efficiently
+          total:
+            type: string
+            format: uint64
+            title: >-
+              total is total number of results available if
+              PageRequest.count_total
+
+              was set, its value is undefined otherwise
+        description: |-
+          PageResponse is to be embedded in gRPC response messages where the
+          corresponding request message has used PageRequest.
+
+           message SomeResponse {
+                   repeated Bar results = 1;
+                   PageResponse page = 2;
+           }
+  tendermint.spn.profile.ConsensusKeyNonce:
+    type: object
+    properties:
+      consensusAddress:
+        type: string
+      nonce:
+        type: string
+        format: uint64
   tendermint.spn.profile.Coordinator:
     type: object
     properties:
@@ -25159,6 +25687,8 @@ definitions:
           properties:
             address:
               type: string
+            consensusAddress:
+              type: string
             description:
               type: object
               properties:
@@ -25197,6 +25727,17 @@ definitions:
                    repeated Bar results = 1;
                    PageResponse page = 2;
            }
+  tendermint.spn.profile.QueryGetConsensusKeyNonceResponse:
+    type: object
+    properties:
+      consensusKeyNonce:
+        type: object
+        properties:
+          consensusAddress:
+            type: string
+          nonce:
+            type: string
+            format: uint64
   tendermint.spn.profile.QueryGetCoordinatorByAddressResponse:
     type: object
     properties:
@@ -25228,6 +25769,16 @@ definitions:
                 type: string
               details:
                 type: string
+  tendermint.spn.profile.QueryGetValidatorByConsAddressResponse:
+    type: object
+    properties:
+      validatorByConsAddress:
+        type: object
+        properties:
+          consensusAddress:
+            type: string
+          validatorAddress:
+            type: string
   tendermint.spn.profile.QueryGetValidatorResponse:
     type: object
     properties:
@@ -25235,6 +25786,8 @@ definitions:
         type: object
         properties:
           address:
+            type: string
+          consensusAddress:
             type: string
           description:
             type: object
@@ -25254,6 +25807,8 @@ definitions:
     properties:
       address:
         type: string
+      consensusAddress:
+        type: string
       description:
         type: object
         properties:
@@ -25267,6 +25822,13 @@ definitions:
             type: string
           details:
             type: string
+  tendermint.spn.profile.ValidatorByConsAddress:
+    type: object
+    properties:
+      consensusAddress:
+        type: string
+      validatorAddress:
+        type: string
   tendermint.spn.profile.ValidatorDescription:
     type: object
     properties:

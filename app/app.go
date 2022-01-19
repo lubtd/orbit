@@ -378,6 +378,7 @@ func New(
 		app.IBCKeeper.ChannelKeeper,
 		&app.IBCKeeper.PortKeeper,
 		scopedMonitoringKeeper,
+		app.IBCKeeper.ClientKeeper,
 	)
 	monitoringModule := monitoringpmodule.NewAppModule(appCodec, app.MonitoringKeeper, app.AccountKeeper, app.BankKeeper)
 

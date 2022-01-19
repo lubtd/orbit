@@ -2,7 +2,7 @@
   "type": "cosmos",
   "value": {
     "key": "steve",
-    "chain-id": "spn",
+    "chain-id": "spn-1",
     "rpc-addr": "http://localhost:26657",
     "grpc-addr": "",
     "account-prefix": "spn",

@@ -201,18 +201,18 @@ export default {
 		},
 		
 		
-		async sendMsgDeleteStar({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgUpdateStar({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteStar(value)
+				const msg = await txClient.msgUpdateStar(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgDeleteStar:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgUpdateStar:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgDeleteStar:Send', 'Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgUpdateStar:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
@@ -231,32 +231,32 @@ export default {
 				}
 			}
 		},
-		async sendMsgUpdateStar({ rootGetters }, { value, fee = [], memo = '' }) {
+		async sendMsgDeleteStar({ rootGetters }, { value, fee = [], memo = '' }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateStar(value)
+				const msg = await txClient.msgDeleteStar(value)
 				const result = await txClient.signAndBroadcast([msg], {fee: { amount: fee, 
 	gas: "200000" }, memo})
 				return result
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgUpdateStar:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgDeleteStar:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgUpdateStar:Send', 'Could not broadcast Tx: '+ e.message)
+					throw new SpVuexError('TxClient:MsgDeleteStar:Send', 'Could not broadcast Tx: '+ e.message)
 				}
 			}
 		},
 		
-		async MsgDeleteStar({ rootGetters }, { value }) {
+		async MsgUpdateStar({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgDeleteStar(value)
+				const msg = await txClient.msgUpdateStar(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgDeleteStar:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgUpdateStar:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgDeleteStar:Create', 'Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgUpdateStar:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}
@@ -275,16 +275,16 @@ export default {
 				}
 			}
 		},
-		async MsgUpdateStar({ rootGetters }, { value }) {
+		async MsgDeleteStar({ rootGetters }, { value }) {
 			try {
 				const txClient=await initTxClient(rootGetters)
-				const msg = await txClient.msgUpdateStar(value)
+				const msg = await txClient.msgDeleteStar(value)
 				return msg
 			} catch (e) {
 				if (e == MissingWalletError) {
-					throw new SpVuexError('TxClient:MsgUpdateStar:Init', 'Could not initialize signing client. Wallet is required.')
+					throw new SpVuexError('TxClient:MsgDeleteStar:Init', 'Could not initialize signing client. Wallet is required.')
 				}else{
-					throw new SpVuexError('TxClient:MsgUpdateStar:Create', 'Could not create message: ' + e.message)
+					throw new SpVuexError('TxClient:MsgDeleteStar:Create', 'Could not create message: ' + e.message)
 					
 				}
 			}

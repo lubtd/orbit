@@ -25,3 +25,12 @@ host:
   api: ":1318"
 genesis:
   chain_id: orbit-1
+  app_state:
+    monitoringp:
+      params:
+        consumerChainID: "spn-1"
+        consumerConsensusState:
+          root:
+            hash: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+          timestamp: "2022-01-19T15:22:33.219111Z"
+          nextValidatorsHash: "9B8AAF8774DD4F82A10230794DDC65767309C198DD61F3A69E084F881245ED52"

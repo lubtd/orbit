@@ -1,12 +1,12 @@
 {
   "src": {
-    "chain-id": "spn",
+    "chain-id": "spn-1",
     "port-id": "monitoring",
     "order": "ordered",
     "version": "monitoring-1"
   },
   "dst": {
-    "chain-id": "orbit",
+    "chain-id": "orbit-1",
     "port-id": "monitoring",
     "order": "ordered",
     "version": "monitoring-1"

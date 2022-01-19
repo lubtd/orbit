@@ -2,7 +2,7 @@
   "type": "cosmos",
   "value": {
     "key": "alice",
-    "chain-id": "orbit",
+    "chain-id": "orbit-1",
     "rpc-addr": "http://localhost:26659",
     "grpc-addr": "",
     "account-prefix": "cosmos",

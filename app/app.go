@@ -104,6 +104,7 @@ import (
 const (
 	AccountAddressPrefix = "cosmos"
 	Name                 = "orbit"
+	DefaultChainID       = "orbit-1"
 )
 
 // this line is used by starport scaffolding # stargate/wasm/app/enabledProposals

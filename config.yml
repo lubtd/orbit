@@ -23,3 +23,5 @@ host:
   grpc: ":9092"
   grpc-web: ":9093"
   api: ":1318"
+genesis:
+  chain_id: orbit-1

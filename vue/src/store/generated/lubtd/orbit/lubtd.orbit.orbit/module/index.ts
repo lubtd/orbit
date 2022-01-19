@@ -4,14 +4,14 @@ import { StdFee } from "@cosmjs/launchpad";
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry, OfflineSigner, EncodeObject, DirectSecp256k1HdWallet } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreateStar } from "./types/orbit/tx";
 import { MsgDeleteStar } from "./types/orbit/tx";
+import { MsgCreateStar } from "./types/orbit/tx";
 import { MsgUpdateStar } from "./types/orbit/tx";
 
 
 const types = [
-  ["/lubtd.orbit.orbit.MsgCreateStar", MsgCreateStar],
   ["/lubtd.orbit.orbit.MsgDeleteStar", MsgDeleteStar],
+  ["/lubtd.orbit.orbit.MsgCreateStar", MsgCreateStar],
   ["/lubtd.orbit.orbit.MsgUpdateStar", MsgUpdateStar],
   
 ];
@@ -45,8 +45,8 @@ const txClient = async (wallet: OfflineSigner, { addr: addr }: TxClientOptions =
 
   return {
     signAndBroadcast: (msgs: EncodeObject[], { fee, memo }: SignAndBroadcastOptions = {fee: defaultFee, memo: ""}) => client.signAndBroadcast(address, msgs, fee,memo),
-    msgCreateStar: (data: MsgCreateStar): EncodeObject => ({ typeUrl: "/lubtd.orbit.orbit.MsgCreateStar", value: MsgCreateStar.fromPartial( data ) }),
     msgDeleteStar: (data: MsgDeleteStar): EncodeObject => ({ typeUrl: "/lubtd.orbit.orbit.MsgDeleteStar", value: MsgDeleteStar.fromPartial( data ) }),
+    msgCreateStar: (data: MsgCreateStar): EncodeObject => ({ typeUrl: "/lubtd.orbit.orbit.MsgCreateStar", value: MsgCreateStar.fromPartial( data ) }),
     msgUpdateStar: (data: MsgUpdateStar): EncodeObject => ({ typeUrl: "/lubtd.orbit.orbit.MsgUpdateStar", value: MsgUpdateStar.fromPartial( data ) }),
     
   };

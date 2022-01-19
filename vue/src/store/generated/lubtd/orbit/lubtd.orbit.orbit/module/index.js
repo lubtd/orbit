@@ -2,12 +2,12 @@
 import { SigningStargateClient } from "@cosmjs/stargate";
 import { Registry } from "@cosmjs/proto-signing";
 import { Api } from "./rest";
-import { MsgCreateStar } from "./types/orbit/tx";
 import { MsgDeleteStar } from "./types/orbit/tx";
+import { MsgCreateStar } from "./types/orbit/tx";
 import { MsgUpdateStar } from "./types/orbit/tx";
 const types = [
-    ["/lubtd.orbit.orbit.MsgCreateStar", MsgCreateStar],
     ["/lubtd.orbit.orbit.MsgDeleteStar", MsgDeleteStar],
+    ["/lubtd.orbit.orbit.MsgCreateStar", MsgCreateStar],
     ["/lubtd.orbit.orbit.MsgUpdateStar", MsgUpdateStar],
 ];
 export const MissingWalletError = new Error("wallet is required");
@@ -29,8 +29,8 @@ const txClient = async (wallet, { addr: addr } = { addr: "http://localhost:26657
     const { address } = (await wallet.getAccounts())[0];
     return {
         signAndBroadcast: (msgs, { fee, memo } = { fee: defaultFee, memo: "" }) => client.signAndBroadcast(address, msgs, fee, memo),
-        msgCreateStar: (data) => ({ typeUrl: "/lubtd.orbit.orbit.MsgCreateStar", value: MsgCreateStar.fromPartial(data) }),
         msgDeleteStar: (data) => ({ typeUrl: "/lubtd.orbit.orbit.MsgDeleteStar", value: MsgDeleteStar.fromPartial(data) }),
+        msgCreateStar: (data) => ({ typeUrl: "/lubtd.orbit.orbit.MsgCreateStar", value: MsgCreateStar.fromPartial(data) }),
         msgUpdateStar: (data) => ({ typeUrl: "/lubtd.orbit.orbit.MsgUpdateStar", value: MsgUpdateStar.fromPartial(data) }),
     };
 };

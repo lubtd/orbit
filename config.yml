@@ -7,11 +7,6 @@ accounts:
 validator:
   name: alice
   staked: "100000000stake"
-client:
-  openapi:
-    path: "docs/static/openapi.yml"
-  vuex:
-    path: "vue/src/store"
 faucet:
   name: bob
   coins: ["5token", "100000stake"]
@@ -32,5 +27,5 @@ genesis:
         consumerConsensusState:
           root:
             hash: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
-          timestamp: "2022-01-19T15:22:33.219111Z"
-          nextValidatorsHash: "9B8AAF8774DD4F82A10230794DDC65767309C198DD61F3A69E084F881245ED52"
+          timestamp: "2022-01-26T07:26:55.278516Z"
+          nextValidatorsHash: "E032B4650A751DB77A950AA6D7AB4EC92ACEABCEFB18D694F71DF5F07171C447"

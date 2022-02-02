@@ -1,23 +1,27 @@
 accounts:
   - name: alice
-    coins: ["20000token", "200000000stake"]
+    coins: ["200000000stake"]
     mnemonic: "invite velvet shuffle day shed ramp page business index curve voice question crunch fence pepper olive honey train volcano crime very oil saddle average"
   - name: bob
-    coins: ["10000token", "100000000stake"]
+    coins: ["200000000stake"]
+    mnemonic: "fork edit oil vacant town valid hard pepper square push pear scale story twenty bleak captain egg figure smile witness throw aware effort transfer"
+  - name: carol
+    coins: ["200000000stake"]
+    mnemonic: "amount enable repeat velvet horror dutch truth nuclear stand minute mistake enjoy twice wife sheriff throw sauce unfair stamp chaos antique bread work author"
 validator:
-  name: alice
+  name: bob
   staked: "100000000stake"
 faucet:
   name: bob
   coins: ["5token", "100000stake"]
-  port: 4501
+  port: 4502
 host:
-  rpc: ":26659"
-  p2p: ":26658"
-  prof: ":6061"
-  grpc: ":9092"
-  grpc-web: ":9093"
-  api: ":1318"
+  rpc: ":26661"
+  p2p: ":26660"
+  prof: ":6062"
+  grpc: ":9094"
+  grpc-web: ":9095"
+  api: ":1319"
 genesis:
   chain_id: orbit-1
   app_state:

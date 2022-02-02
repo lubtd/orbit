@@ -23,10 +23,9 @@ genesis:
   app_state:
     monitoringp:
       params:
-        debugMode: true
-#        consumerChainID: "spn-1"
-#        consumerConsensusState:
-#          root:
-#            hash: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
-#          timestamp: "2022-01-26T07:26:55.278516Z"
-#          nextValidatorsHash: "E032B4650A751DB77A950AA6D7AB4EC92ACEABCEFB18D694F71DF5F07171C447"
+        consumerChainID: "spn-1"
+        consumerConsensusState:
+          root:
+            hash: "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
+          timestamp: "2022-01-28T15:22:28.220254Z"
+          nextValidatorsHash: "516814E3295092F8333DAF141C3743FD1B8405C00EE5AFF4D4C2084D7DE86C4C"

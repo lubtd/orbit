@@ -2,13 +2,13 @@
   "src": {
     "chain-id": "spn-1",
     "port-id": "monitoring",
-    "order": "ordered",
+    "order": "unordered",
     "version": "monitoring-1"
   },
   "dst": {
     "chain-id": "orbit-1",
     "port-id": "monitoring",
-    "order": "ordered",
+    "order": "unordered",
     "version": "monitoring-1"
   },
   "strategy": { "type": "naive" }

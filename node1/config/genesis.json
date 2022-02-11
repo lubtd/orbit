@@ -1,5 +1,5 @@
 {
-    "genesis_time": "1970-01-01T00:00:00Z",
+    "genesis_time": "2022-02-10T10:29:59.410196Z",
     "chain_id": "orbit-1",
     "initial_height": "1",
     "consensus_params": {
@@ -134,7 +134,7 @@
                             {
                                 "@type": "/cosmos.staking.v1beta1.MsgCreateValidator",
                                 "description": {
-                                    "moniker": "alice",
+                                    "moniker": "bob",
                                     "identity": "",
                                     "website": "",
                                     "security_contact": "",
@@ -186,7 +186,7 @@
                         }
                     },
                     "signatures": [
-                        "gc3t0zqxn0j+dJRb2SPXo5Qu3KLeX+LvxRNb1Z9jbeESGFUI8L6Ns8wyQtqC+Jd3sVH1WIcMLaXq7S71xmsYOA=="
+                        "ufw/Kf2H2zD5VuyNZ8k6ZFCNBTouxhxsD+mSMnRBIjQf+KffY203kxCFrpagmNut7dlWDx5BY1OOTNH34PTVIg=="
                     ]
                 },
                 {
@@ -195,7 +195,7 @@
                             {
                                 "@type": "/cosmos.staking.v1beta1.MsgCreateValidator",
                                 "description": {
-                                    "moniker": "bob",
+                                    "moniker": "carol",
                                     "identity": "",
                                     "website": "",
                                     "security_contact": "",
@@ -247,7 +247,7 @@
                         }
                     },
                     "signatures": [
-                        "ZEEEHXIKpjGNnXJPDP7P2b0jgG/faH3dyOYurwg14r0G89MrF+D6Z2+TlwGIXHDJXDT55VLEKiM8onJcwUe9Kg=="
+                        "GA0xnZ+CJm9lL8pBlumImwhBo2uDKRW4iiqwSc+XIDoj8vfGARPdDuzJfZSnU4pBN9eKirEzErLLJlw0zCQTAg=="
                     ]
                 },
                 {
@@ -256,7 +256,7 @@
                             {
                                 "@type": "/cosmos.staking.v1beta1.MsgCreateValidator",
                                 "description": {
-                                    "moniker": "carol",
+                                    "moniker": "dave",
                                     "identity": "",
                                     "website": "",
                                     "security_contact": "",
@@ -308,7 +308,7 @@
                         }
                     },
                     "signatures": [
-                        "kyOOIdhuGG5pmRTJNSGwTsI2oQz6OHWVbrHOnd3qJYoGbZ6MbyxMR3D20d0YMD8iyex20H60wFO2t0VGAG2MYQ=="
+                        "fgv8Or4l2ATru+iBcsh6AN//0cBydoEYQbJOE1ETn/1Dkplb+TIYTOJwTeX6lsq0PE2JG7HkFpPEJ/nLarTbdw=="
                     ]
                 }
             ]
@@ -390,14 +390,14 @@
             "params": {
                 "consumerChainID": "spn-1",
                 "consumerConsensusState": {
-                    "nextValidatorsHash": "BDC128F6158C4ADD16AC28610D7D2BEDC23FA4DB144F86F1B8FBAC5E2A64FE00",
+                    "nextValidatorsHash": "7BF7458F41D6FD2A87EB1675618A0ECA31E364B11AAB7AA9F498F77B03A96D4B",
                     "root": {
                         "hash": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
                     },
-                    "timestamp": "2022-02-10T09:48:01.962424Z"
+                    "timestamp": "2022-02-11T11:34:41.640955Z"
                 },
                 "debugMode": false,
-                "lastBlockHeight": 50
+                "lastBlockHeight": 100
             },
             "port_id": "monitoring"
         },
@@ -427,7 +427,7 @@
                 "bond_denom": "stake",
                 "historical_entries": 10000,
                 "max_entries": 7,
-                "max_validators": 50,
+                "max_validators": 100,
                 "unbonding_time": "1814400s"
             },
             "redelegations": [],

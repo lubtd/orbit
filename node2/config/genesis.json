@@ -390,13 +390,13 @@
             "params": {
                 "consumerChainID": "spn-1",
                 "consumerConsensusState": {
-                    "nextValidatorsHash": "A04172B2CA749923E63326E7E97E102EF6B74471C97848E05D410225D3CE6331",
+                    "nextValidatorsHash": "05F1E4DC291D7FC7801B3463EDBF654A5230C8A5A1EDEF745272FC06D4455443",
                     "root": {
                         "hash": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
                     },
-                    "timestamp": "2022-02-13T17:28:07.220927Z"
+                    "timestamp": "2022-02-15T16:35:07.205Z"
                 },
-                "debugMode": true,
+                "debugMode": false,
                 "lastBlockHeight": 30
             },
             "port_id": "monitoring"
@@ -427,7 +427,7 @@
                 "bond_denom": "stake",
                 "historical_entries": 10000,
                 "max_entries": 7,
-                "max_validators": 1,
+                "max_validators": 10,
                 "unbonding_time": "1814400s"
             },
             "redelegations": [],

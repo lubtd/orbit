@@ -9,6 +9,7 @@ then
   echo "coordinator creation failed"
   exit 1
 fi
+echo "coordinator created"
 
 # Create chain
 if ! spnd tx launch create-chain orbit-1 orbit.com 0xaaa --from alice -y &> /dev/null;
@@ -16,6 +17,7 @@ then
   echo "chain creation failed"
   exit 1
 fi
+echo "chain created"
 
 # Set reward pool with vouchers for the chain
 if ! spnd tx campaign create-campaign orbit 1000000orbit --from alice -y &> /dev/null;
@@ -23,18 +25,21 @@ then
   echo "campaign creation failed"
   exit 1
 fi
+echo "campaign created"
 
 if ! spnd tx campaign mint-vouchers 1 50000orbit --from alice -y &> /dev/null;
 then
   echo "failed to mint vouchers"
   exit 1
 fi
+echo "vouchers minted"
 
 if ! spnd tx reward set-rewards 1 50000v/1/orbit 30 --from alice -y &> /dev/null;
 then
   echo "failed to set reward"
   exit 1
 fi
+echo "vouchers put in reward pool for chain"
 
 # Register validator profiles
 if ! spnd tx profile set-validator-cons-address ./node1/config/priv_validator_key.json 0 --from bob -y &> /dev/null;
@@ -42,18 +47,21 @@ then
   echo "failed to register bob validator profile"
   exit 1
 fi
+echo "bob validator profile registered"
 
 if ! spnd tx profile set-validator-cons-address ./node2/config/priv_validator_key.json 0 --from carol -y &> /dev/null;
 then
   echo "failed to register carol validator profile"
   exit 1
 fi
+echo "carol validator profile registered"
 
 if ! spnd tx profile set-validator-cons-address ./node3/config/priv_validator_key.json 0 --from dave -y &> /dev/null;
 then
   echo "failed to register dave validator profile"
   exit 1
 fi
+echo "dave validator profile registered"
 
 # Send add validator requests
 if ! spnd tx launch request-add-validator 1 ./node1/config/gentx/gentx.json "Q5D7koejne/P2F1iIcSSVo6M4siL5anwHH7iopX66ps=" 70000000stake aaa foo.com --validator-address spn1aqn8ynvr3jmq67879qulzrwhchq5dtrvtx0nhe --from alice -y &> /dev/null;
@@ -61,18 +69,21 @@ then
   echo "failed to add bob validator"
   exit 1
 fi
+echo "bob validator added for chain"
 
 if ! spnd tx launch request-add-validator 1 ./node2/config/gentx/gentx.json "JzzB4Kr09x3k1MdatVL7MBMrZUn0D3Lx9AK+nHWjbq0=" 60000000stake aaa foo.com --validator-address spn1pkdk6m2nh77nlaep84cylmkhjder3arey7rll5 --from alice -y &> /dev/null;
 then
   echo "failed to add carol validator"
   exit 1
 fi
+echo "carol validator added for chain"
 
 if ! spnd tx launch request-add-validator 1 ./node3/config/gentx/gentx.json "4TwlBGJhu4ZDRBDK57GiFyAFafDAapa6nVQ0VvG5rjA=" 50000000stake aaa foo.com --validator-address spn1twckcceyw43da9j247pfs3yhqsv25j38grh68q --from alice -y &> /dev/null;
 then
   echo "failed to add dave validator"
   exit 1
 fi
+echo "dave validator added for chain"
 
 # Trigger launch for the chain
 if ! spnd tx launch trigger-launch 1 100000 --from alice -y &> /dev/null;
@@ -80,6 +91,7 @@ then
   echo "failed to trigger chain"
   exit 1
 fi
+echo "launch triggered"
 
 echo "chain initialized and reward pool set"
 spnd q reward list-reward-pool

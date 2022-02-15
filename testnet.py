@@ -1,21 +1,22 @@
 import os
 import sys
 import json
+import subprocess
 
 # Consumer debug mode
-debugMode = True
+debugMode = False
 
 # SPN Consensus State
-nextValidatorHash = 'A04172B2CA749923E63326E7E97E102EF6B74471C97848E05D410225D3CE6331'
+nextValidatorHash = '05F1E4DC291D7FC7801B3463EDBF654A5230C8A5A1EDEF745272FC06D4455443'
 rootHash = '47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='
-timestamp = '2022-02-13T17:28:07.220927Z'
+timestamp = '2022-02-15T16:35:07.205Z'
 
 # Reward
 lastBlockHeight = 30
 
 # Staking
 # Must be lower than 200000000stake
-maxValidator = 1
+maxValidator = 10
 selfDelegationVal1 = '70000000stake'
 selfDelegationVal2 = '60000000stake'
 selfDelegationVal3 = '50000000stake'
@@ -72,8 +73,8 @@ with open('./node2/config/genesis.json', 'w', encoding='utf-8') as f:
 with open('./node3/config/genesis.json', 'w', encoding='utf-8') as f:
     json.dump(genesis, f, ensure_ascii=False, indent=4)
 
-print('Genesis generated for network!')
-print('To start the network, run the commands:')
-print('orbitd start --home ./node1')
-print('orbitd start --home ./node2')
-print('orbitd start --home ./node3')
+print('Starting the network')
+subprocess.Popen(["orbitd", "start", "--home", "./node2"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+subprocess.Popen(["orbitd", "start", "--home", "./node3"], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+subprocess.run(["orbitd start --home ./node1"], shell=True, check=True)
+

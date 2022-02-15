@@ -2,20 +2,23 @@ import os
 import sys
 import json
 
+# Consumer debug mode
+debugMode = True
+
 # SPN Consensus State
-nextValidatorHash = '7BF7458F41D6FD2A87EB1675618A0ECA31E364B11AAB7AA9F498F77B03A96D4B'
+nextValidatorHash = 'A04172B2CA749923E63326E7E97E102EF6B74471C97848E05D410225D3CE6331'
 rootHash = '47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='
-timestamp = '2022-02-11T11:34:41.640955Z'
+timestamp = '2022-02-13T17:28:07.220927Z'
 
 # Reward
 lastBlockHeight = 100
 
 # Staking
 # Must be lower than 200000000stake
-maxValidator = 100
-selfDelegationVal1 = '50000000stake'
+maxValidator = 1
+selfDelegationVal1 = '70000000stake'
 selfDelegationVal2 = '60000000stake'
-selfDelegationVal3 = '70000000stake'
+selfDelegationVal3 = '50000000stake'
 
 # Reset all nodes
 os.system('orbitd unsafe-reset-all --home ./node1')
@@ -30,6 +33,7 @@ genesis = json.load(genesisFile)
 genesis['genesis_time'] = "2022-02-10T10:29:59.410196Z"
 
 # Set monitoring module param
+genesis['app_state']['monitoringp']['params']['debugMode'] = debugMode
 genesis['app_state']['monitoringp']['params']['lastBlockHeight'] = lastBlockHeight
 genesis['app_state']['monitoringp']['params']['consumerConsensusState']['timestamp'] = timestamp
 genesis['app_state']['monitoringp']['params']['consumerConsensusState']['nextValidatorsHash'] = nextValidatorHash

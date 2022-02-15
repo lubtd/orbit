@@ -11,7 +11,7 @@ rootHash = '47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='
 timestamp = '2022-02-13T17:28:07.220927Z'
 
 # Reward
-lastBlockHeight = 100
+lastBlockHeight = 30
 
 # Staking
 # Must be lower than 200000000stake

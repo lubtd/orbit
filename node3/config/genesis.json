@@ -154,7 +154,7 @@
                                 },
                                 "value": {
                                     "denom": "stake",
-                                    "amount": "70000000"
+                                    "amount": "90000000"
                                 }
                             }
                         ],
@@ -186,7 +186,7 @@
                         }
                     },
                     "signatures": [
-                        "/MtUSfw+yb98fARWkFeJ8D7qS/tfS9BsIRD+MW9uB04Usz6JWNzwE4nvtkBpFzkD+jCDFypAWUD5nFFID3RnOA=="
+                        "5ooRuxcQdbXcBZxiXQspVuWPKE3BBpnD1SoUOAeEhLhxGqrljo6M/CB5B/B6HCN6rTjTBYFL39SUm/fsC6CksQ=="
                     ]
                 },
                 {
@@ -215,7 +215,7 @@
                                 },
                                 "value": {
                                     "denom": "stake",
-                                    "amount": "60000000"
+                                    "amount": "10000000"
                                 }
                             }
                         ],
@@ -247,7 +247,7 @@
                         }
                     },
                     "signatures": [
-                        "GA0xnZ+CJm9lL8pBlumImwhBo2uDKRW4iiqwSc+XIDoj8vfGARPdDuzJfZSnU4pBN9eKirEzErLLJlw0zCQTAg=="
+                        "aFynDSYnhKV6W1ueRjp7dkveSKvcARHzbwwDNvVWids5CAIdnVPXKDjQUZhqFe6YC0kGYwlSGbJEbhU7ceRhHg=="
                     ]
                 },
                 {
@@ -276,7 +276,7 @@
                                 },
                                 "value": {
                                     "denom": "stake",
-                                    "amount": "50000000"
+                                    "amount": "10000000"
                                 }
                             }
                         ],
@@ -308,7 +308,7 @@
                         }
                     },
                     "signatures": [
-                        "TG79HwgdcrJ0QuNcYiuZ5douoMFUk/a1BF7V+2uD44Jq/DYKh16d+fNAYO9Ek34h+BeDxjn3QJ6fU8Mu/rBMtQ=="
+                        "AWi4O1g8u5WYwwsn578mZ6WcnCbg5vxMPWbev8U/gsQpXx061EOqWzPxMNQvW7n7e5VEKb207j0aE6q+7k7zlQ=="
                     ]
                 }
             ]

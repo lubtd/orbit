@@ -17,9 +17,9 @@ lastBlockHeight = 30
 # Staking
 # Must be lower than 200000000stake
 maxValidator = 10
-selfDelegationVal1 = '70000000stake'
-selfDelegationVal2 = '60000000stake'
-selfDelegationVal3 = '50000000stake'
+selfDelegationVal1 = '90000000stake'
+selfDelegationVal2 = '10000000stake'
+selfDelegationVal3 = '10000000stake'
 
 # Reset all nodes
 os.system('orbitd unsafe-reset-all --home ./node1')

@@ -20,12 +20,12 @@ pruning-keep-recent = "0"
   swagger = false
 
 [grpc]
-  address = ":9092"
-  enable = true
+  address = ""
+  enable = false
 
 [grpc-web]
-  address = ":9093"
-  enable = true
+  address = ""
+  enable = false
   enable-unsafe-cors = false
 
 [rosetta]

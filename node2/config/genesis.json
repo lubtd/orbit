@@ -1,6 +1,6 @@
 {
     "genesis_time": "2022-02-10T10:29:59.410196Z",
-    "chain_id": "orbit-1",
+    "chain_id": "orbit-2",
     "initial_height": "1",
     "consensus_params": {
         "block": {
@@ -154,7 +154,7 @@
                                 },
                                 "value": {
                                     "denom": "stake",
-                                    "amount": "90000000"
+                                    "amount": "10000000"
                                 }
                             }
                         ],
@@ -186,7 +186,7 @@
                         }
                     },
                     "signatures": [
-                        "5ooRuxcQdbXcBZxiXQspVuWPKE3BBpnD1SoUOAeEhLhxGqrljo6M/CB5B/B6HCN6rTjTBYFL39SUm/fsC6CksQ=="
+                        "BX5Mlqlmi3a1f/XruGpVcKqo0scW8AcjGQeWWj1lpq8lZX9Xbg7BBwnOHKi8UXPB5FehwB0vucFGhcOq2XMt6A=="
                     ]
                 },
                 {
@@ -247,7 +247,7 @@
                         }
                     },
                     "signatures": [
-                        "aFynDSYnhKV6W1ueRjp7dkveSKvcARHzbwwDNvVWids5CAIdnVPXKDjQUZhqFe6YC0kGYwlSGbJEbhU7ceRhHg=="
+                        "Qby0L0PSWklNsQLAUKOXf8OijpnjPZr0tTPKXOky6wxzpDvHxOMQ4RpimA/WIj25K8snQXoXHMxGGODqQPbb4A=="
                     ]
                 },
                 {
@@ -308,7 +308,7 @@
                         }
                     },
                     "signatures": [
-                        "AWi4O1g8u5WYwwsn578mZ6WcnCbg5vxMPWbev8U/gsQpXx061EOqWzPxMNQvW7n7e5VEKb207j0aE6q+7k7zlQ=="
+                        "3PjD6dSX55HeOe8v7ZYoMMuQ77vTPGoUmCqJwDXCZB84YmuRIFX6XyAu0Rh4lBschnyVYR4vYXSR+3uJj5POSQ=="
                     ]
                 }
             ]
@@ -390,11 +390,11 @@
             "params": {
                 "consumerChainID": "spn-1",
                 "consumerConsensusState": {
-                    "nextValidatorsHash": "05F1E4DC291D7FC7801B3463EDBF654A5230C8A5A1EDEF745272FC06D4455443",
+                    "nextValidatorsHash": "F1CD3FA90385F45E763CA36875C48737199EAA578E6CBE026EE43723D14F3E8F",
                     "root": {
                         "hash": "47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU="
                     },
-                    "timestamp": "2022-02-15T16:35:07.205Z"
+                    "timestamp": "2022-02-10T10:29:59.410196Z"
                 },
                 "debugMode": false,
                 "lastBlockHeight": 30

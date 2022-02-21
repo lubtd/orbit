@@ -64,21 +64,21 @@ fi
 echo "dave validator profile registered"
 
 # Send add validator requests
-if ! spnd tx launch request-add-validator 1 ./node1/config/gentx/gentx.json "Q5D7koejne/P2F1iIcSSVo6M4siL5anwHH7iopX66ps=" 70000000stake aaa foo.com --validator-address spn1aqn8ynvr3jmq67879qulzrwhchq5dtrvtx0nhe --from alice -y &> /dev/null;
+if ! spnd tx launch request-add-validator 1 ./node1/config/gentx/gentx.json "Q5D7koejne/P2F1iIcSSVo6M4siL5anwHH7iopX66ps=" 10000000stake aaa foo.com --validator-address spn1aqn8ynvr3jmq67879qulzrwhchq5dtrvtx0nhe --from alice -y &> /dev/null;
 then
   echo "failed to add bob validator"
   exit 1
 fi
 echo "bob validator added for chain"
 
-if ! spnd tx launch request-add-validator 1 ./node2/config/gentx/gentx.json "JzzB4Kr09x3k1MdatVL7MBMrZUn0D3Lx9AK+nHWjbq0=" 60000000stake aaa foo.com --validator-address spn1pkdk6m2nh77nlaep84cylmkhjder3arey7rll5 --from alice -y &> /dev/null;
+if ! spnd tx launch request-add-validator 1 ./node2/config/gentx/gentx.json "JzzB4Kr09x3k1MdatVL7MBMrZUn0D3Lx9AK+nHWjbq0=" 10000000stake aaa foo.com --validator-address spn1pkdk6m2nh77nlaep84cylmkhjder3arey7rll5 --from alice -y &> /dev/null;
 then
   echo "failed to add carol validator"
   exit 1
 fi
 echo "carol validator added for chain"
 
-if ! spnd tx launch request-add-validator 1 ./node3/config/gentx/gentx.json "4TwlBGJhu4ZDRBDK57GiFyAFafDAapa6nVQ0VvG5rjA=" 50000000stake aaa foo.com --validator-address spn1twckcceyw43da9j247pfs3yhqsv25j38grh68q --from alice -y &> /dev/null;
+if ! spnd tx launch request-add-validator 1 ./node3/config/gentx/gentx.json "4TwlBGJhu4ZDRBDK57GiFyAFafDAapa6nVQ0VvG5rjA=" 10000000stake aaa foo.com --validator-address spn1twckcceyw43da9j247pfs3yhqsv25j38grh68q --from alice -y &> /dev/null;
 then
   echo "failed to add dave validator"
   exit 1

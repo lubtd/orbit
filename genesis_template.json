@@ -212,6 +212,8 @@
           },
           "timestamp": "2022-02-02T08:44:23.922791Z"
         },
+        "consumerUnbondingPeriod": "100",
+        "consumerRevisionHeight": "1",
         "debugMode": false,
         "lastBlockHeight": "1"
       },

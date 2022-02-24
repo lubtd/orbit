@@ -2,6 +2,8 @@ import os
 import sys
 import json
 import subprocess
+import argparse
+import yaml
 
 def saveGenesis(genesis):
     with open('./node1/config/genesis.json', 'w', encoding='utf-8') as f:
@@ -11,31 +13,74 @@ def saveGenesis(genesis):
     with open('./node3/config/genesis.json', 'w', encoding='utf-8') as f:
         json.dump(genesis, f, ensure_ascii=False, indent=4)
 
-# Consumer debug mode
-debugMode = False
+parser = argparse.ArgumentParser(description='Instantiate an orbit testnet')
+parser.add_argument('--spn_chain_id',
+                    help='Chain ID on SPN',
+                    default='spn-1')
+parser.add_argument('--orbit_chain_id',
+                    help='Chain ID on Orbit',
+                    default='orbit-1')
+parser.add_argument('--debug',
+                    action='store_true',
+                    help='Set debug mode for module')
+parser.add_argument('--spn_unbonding_period',
+                    type=int,
+                    default=1000,
+                    help='Unbonding period on spn',
+                    )
+parser.add_argument('--spn_revision_height',
+                    type=int,
+                    default=2,
+                    help='Revision height for SPN IBC client',
+                    )
+parser.add_argument('--last_block_height',
+                    type=int,
+                    default=100,
+                    help='Last block height for monitoring packet forwarding',
+                    )
+parser.add_argument('--max_validator',
+                    type=int,
+                    default=10,
+                    help='Staking max validator set',
+                    )
+parser.add_argument('--self_delegation_1',
+                    default='10000000stake',
+                    help='Self delegation for validator 1',
+                    )
+parser.add_argument('--self_delegation_2',
+                    default='10000000stake',
+                    help='Self delegation for validator 2',
+                    )
+parser.add_argument('--self_delegation_3',
+                    default='10000000stake',
+                    help='Self delegation for validator 3',
+                    )
+parser.add_argument('--unbonding_time',
+                    default=1814400, # 21 days = 1814400 seconds
+                    type=int,
+                    help='Staking unbonding time (unbonding period)',
+                    )
 
-# chain IDs
-spnChainID = "spn-1"
-chainID = "orbit-1"
+# Parse params
+args = parser.parse_args()
+debugMode = args.debug
+spnChainID = args.spn_chain_id
+chainID = args.orbit_chain_id
+spnUnbondingPeriod = args.spn_unbonding_period
+revisionHeight = args.spn_revision_height
+lastBlockHeight = args.last_block_height
+maxValidator = args.max_validator
+selfDelegationVal1 = args.self_delegation_1
+selfDelegationVal2 = args.self_delegation_2
+selfDelegationVal3 = args.self_delegation_3
+unbondingTime = args.unbonding_time
 
-# SPN Values
-nextValidatorHash = 'F1CD3FA90385F45E763CA36875C48737199EAA578E6CBE026EE43723D14F3E8F'
-rootHash = '47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU='
-timestamp = '2022-02-23T10:37:26.351300Z'
-unbondingPeriod = 1000
-revisionHeight = 2
-
-# Reward
-lastBlockHeight = 30
-
-# Staking
-# Must be lower than 200000000stake
-maxValidator = 10
-selfDelegationVal1 = '10000000stake'
-selfDelegationVal2 = '10000000stake'
-selfDelegationVal3 = '10000000stake'
-# Default: 21 days = 1814400 seconds
-unbondingTime = 1000
+# Read SPN Consensus State
+confFile = open('./spncs.yaml')
+conf = yaml.safe_load(confFile)
+nextValidatorHash = conf['next_validators_hash']
+rootHash = conf['root']['hash']
+timestamp = conf['timestamp']
 
 # Reset all nodes
 os.system('orbitd unsafe-reset-all --home ./node1')
@@ -61,7 +106,7 @@ genesis['app_state']['monitoringp']['params']['lastBlockHeight'] = lastBlockHeig
 genesis['app_state']['monitoringp']['params']['consumerConsensusState']['timestamp'] = timestamp
 genesis['app_state']['monitoringp']['params']['consumerConsensusState']['nextValidatorsHash'] = nextValidatorHash
 genesis['app_state']['monitoringp']['params']['consumerConsensusState']['root']['hash'] = rootHash
-genesis['app_state']['monitoringp']['params']['consumerUnbondingPeriod'] = unbondingPeriod
+genesis['app_state']['monitoringp']['params']['consumerUnbondingPeriod'] = spnUnbondingPeriod
 genesis['app_state']['monitoringp']['params']['consumerRevisionHeight'] = revisionHeight
 
 # Set staking max validators

@@ -29,7 +29,7 @@ parser.add_argument('--spn_revision_height',
                     )
 parser.add_argument('--last_block_height',
                     type=int,
-                    default=50,
+                    default=150,
                     help='Last block height for monitoring packet forwarding',
                     )
 parser.add_argument('--max_validator',
@@ -38,7 +38,7 @@ parser.add_argument('--max_validator',
                     help='Staking max validator set',
                     )
 parser.add_argument('--self_delegation_1',
-                    default='10000000stake',
+                    default='80000000stake',
                     help='Self delegation for validator 1',
                     )
 parser.add_argument('--self_delegation_2',
@@ -50,7 +50,7 @@ parser.add_argument('--self_delegation_3',
                     help='Self delegation for validator 3',
                     )
 parser.add_argument('--unbonding_time',
-                    default=1000, # 21 days = 1814400 seconds
+                    default=60, # 21 days = 1814400 seconds
                     type=int,
                     help='Staking unbonding time (unbonding period)',
                     )
@@ -71,7 +71,12 @@ unbondingTime = args.unbonding_time
 
 # Initialize rewards
 print('intialize rewards')
-rewards(lastBlockHeight, selfDelegationVal1, selfDelegationVal2, selfDelegationVal3)
+rewards(
+    lastBlockHeight,
+    selfDelegationVal1,
+    selfDelegationVal2,
+    selfDelegationVal3,
+)
 print('rewards initialized')
 
 os.system('spnd q ibc client self-consensus-state --height 2 > spncs.yaml')
@@ -94,7 +99,7 @@ start(
 )
 print('network started')
 
-time.sleep(5)
+time.sleep(10)
 
 # Create verified IBC client on SPN
 print('create verified client')

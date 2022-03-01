@@ -376,6 +376,7 @@ func New(
 		keys[monitoringpmoduletypes.StoreKey],
 		keys[monitoringpmoduletypes.MemStoreKey],
 		app.GetSubspace(monitoringpmoduletypes.ModuleName),
+		app.StakingKeeper,
 		app.IBCKeeper.ClientKeeper,
 		app.IBCKeeper.ConnectionKeeper,
 		app.IBCKeeper.ChannelKeeper,

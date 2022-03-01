@@ -42,6 +42,10 @@ def rewards(lastBlockHeight, selfDelegationVal1, selfDelegationVal2, selfDelegat
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run(['spnd tx launch request-add-validator 1 ./node3/config/gentx/gentx.json "4TwlBGJhu4ZDRBDK57GiFyAFafDAapa6nVQ0VvG5rjA=" {} aaa foo.com --validator-address spn1twckcceyw43da9j247pfs3yhqsv25j38grh68q --from alice -y'.format(selfDelegationVal3)],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    # subprocess.run(['spnd tx launch request-add-validator 1 ./node3/config/gentx/gentx.json "FyTmyvZhwRjwqhY6eWykTfiE+0mwe+U0aSo3ti8DCW8=" 16000000stake aaa foo.com --validator-address spn1ezptsm3npn54qx9vvpah4nymre59ykr9exx2ul --from alice -y'],
+    #                shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
     subprocess.run(['spnd tx launch trigger-launch 1 100000 --from alice -y'],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 

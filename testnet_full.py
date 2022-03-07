@@ -1,11 +1,7 @@
 import os
-import sys
-import json
-import subprocess
 import argparse
-import yaml
 import time
-from testnet import clear, rewards, start
+from testnet import rewards, start
 
 parser = argparse.ArgumentParser(description='Start a testnet and connect it for reward')
 parser.add_argument('--spn_chain_id',
@@ -29,7 +25,7 @@ parser.add_argument('--spn_revision_height',
                     )
 parser.add_argument('--last_block_height',
                     type=int,
-                    default=150,
+                    default=50,
                     help='Last block height for monitoring packet forwarding',
                     )
 parser.add_argument('--max_validator',
@@ -38,7 +34,7 @@ parser.add_argument('--max_validator',
                     help='Staking max validator set',
                     )
 parser.add_argument('--self_delegation_1',
-                    default='80000000stake',
+                    default='10000000stake',
                     help='Self delegation for validator 1',
                     )
 parser.add_argument('--self_delegation_2',
@@ -50,7 +46,7 @@ parser.add_argument('--self_delegation_3',
                     help='Self delegation for validator 3',
                     )
 parser.add_argument('--unbonding_time',
-                    default=60, # 21 days = 1814400 seconds
+                    default=1000, # 21 days = 1814400 seconds
                     type=int,
                     help='Staking unbonding time (unbonding period)',
                     )

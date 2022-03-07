@@ -30,11 +30,11 @@ def rewards(lastBlockHeight, selfDelegationVal1, selfDelegationVal2, selfDelegat
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run(['spnd tx reward set-rewards 1 50000v/1/orbit {} --from alice -y'.format(lastBlockHeight)],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx profile set-validator-cons-address ./node1/config/priv_validator_key.json 0 --from bob -y'],
+    subprocess.run(['spnd tx profile add-validator-operator-address spn1aqn8ynvr3jmq67879qulzrwhchq5dtrvtx0nhe  --from joe -y'],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx profile set-validator-cons-address ./node2/config/priv_validator_key.json 0 --from carol -y'],
+    subprocess.run(['spnd tx profile add-validator-operator-address spn1pkdk6m2nh77nlaep84cylmkhjder3arey7rll5  --from steve -y'],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx profile set-validator-cons-address ./node3/config/priv_validator_key.json 0 --from dave -y'],
+    subprocess.run(['spnd tx profile add-validator-operator-address spn1twckcceyw43da9j247pfs3yhqsv25j38grh68q --from olivia -y'],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run(['spnd tx launch request-add-validator 1 ./node1/config/gentx/gentx.json "Q5D7koejne/P2F1iIcSSVo6M4siL5anwHH7iopX66ps=" {} aaa foo.com --validator-address spn1aqn8ynvr3jmq67879qulzrwhchq5dtrvtx0nhe --from alice -y'.format(selfDelegationVal1)],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
@@ -110,15 +110,15 @@ def start(
     genesis['app_state']['staking']['params']['unbonding_time'] = str(unbondingTime)+"s"
 
     # Create the gentxs
-    os.system('orbitd gentx alice {} --chain-id {} --moniker="bob" --home ./node1 --output-document ./gentx1.json'.format(selfDelegationVal1, chainID))
+    os.system('orbitd gentx joe {} --chain-id {} --moniker="joe" --home ./node1 --output-document ./gentx1.json'.format(selfDelegationVal1, chainID))
     gentx1File = open('./gentx1.json')
     gentx1 = json.load(gentx1File)
 
-    os.system('orbitd gentx bob {} --chain-id {} --moniker="carol" --home ./node2 --output-document ./gentx2.json'.format(selfDelegationVal2, chainID))
+    os.system('orbitd gentx steve {} --chain-id {} --moniker="steve" --home ./node2 --output-document ./gentx2.json'.format(selfDelegationVal2, chainID))
     gentx2File = open('./gentx2.json')
     gentx2 = json.load(gentx2File)
 
-    os.system('orbitd gentx carol {} --chain-id {} --moniker="dave" --home ./node3 --output-document ./gentx3.json'.format(selfDelegationVal3, chainID))
+    os.system('orbitd gentx olivia {} --chain-id {} --moniker="olivia" --home ./node3 --output-document ./gentx3.json'.format(selfDelegationVal3, chainID))
     gentx3File = open('./gentx3.json')
     gentx3 = json.load(gentx3File)
 

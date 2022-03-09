@@ -12,3 +12,4 @@ release/
 .DS_Store
 cs.yaml
 vs.yaml
+__pycache__/

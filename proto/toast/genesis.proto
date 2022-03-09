@@ -1,0 +1,16 @@
+syntax = "proto3";
+package lubtd.orbit.toast;
+
+import "gogoproto/gogo.proto";
+import "toast/params.proto";
+import "toast/enable_map.proto";
+// this line is used by starport scaffolding # genesis/proto/import
+
+option go_package = "github.com/lubtd/orbit/x/toast/types";
+
+// GenesisState defines the toast module's genesis state.
+message GenesisState {
+  Params params = 1 [(gogoproto.nullable) = false];
+  repeated EnableMap enableMapList = 2 [(gogoproto.nullable) = false];
+  // this line is used by starport scaffolding # genesis/proto/state
+}

@@ -94,6 +94,9 @@ import (
 	orbitmodulekeeper "github.com/lubtd/orbit/x/orbit/keeper"
 	orbitmoduletypes "github.com/lubtd/orbit/x/orbit/types"
 
+	toastmodule "github.com/lubtd/orbit/x/toast"
+	toastmodulekeeper "github.com/lubtd/orbit/x/toast/keeper"
+	toastmoduletypes "github.com/lubtd/orbit/x/toast/types"
 	// this line is used by starport scaffolding # stargate/app/moduleImport
 
 	monitoringpmodule "github.com/tendermint/spn/x/monitoringp"
@@ -151,6 +154,7 @@ var (
 		vesting.AppModuleBasic{},
 		orbitmodule.AppModuleBasic{},
 		monitoringpmodule.AppModuleBasic{},
+		toastmodule.AppModuleBasic{},
 		// this line is used by starport scaffolding # stargate/app/moduleBasic
 	)
 
@@ -223,6 +227,8 @@ type App struct {
 	ScopedMonitoringKeeper capabilitykeeper.ScopedKeeper
 
 	OrbitKeeper orbitmodulekeeper.Keeper
+
+	ToastKeeper toastmodulekeeper.Keeper
 	// this line is used by starport scaffolding # stargate/app/keeperDeclaration
 
 	MonitoringKeeper monitoringpmodulekeeper.Keeper
@@ -263,6 +269,7 @@ func New(
 		evidencetypes.StoreKey, ibctransfertypes.StoreKey, capabilitytypes.StoreKey,
 		orbitmoduletypes.StoreKey,
 		monitoringpmoduletypes.StoreKey,
+		toastmoduletypes.StoreKey,
 		// this line is used by starport scaffolding # stargate/app/storeKey
 	)
 	tkeys := sdk.NewTransientStoreKeys(paramstypes.TStoreKey)
@@ -385,6 +392,14 @@ func New(
 	)
 	monitoringModule := monitoringpmodule.NewAppModule(appCodec, app.MonitoringKeeper, app.AccountKeeper, app.BankKeeper)
 
+	app.ToastKeeper = *toastmodulekeeper.NewKeeper(
+		appCodec,
+		keys[toastmoduletypes.StoreKey],
+		keys[toastmoduletypes.MemStoreKey],
+		app.GetSubspace(toastmoduletypes.ModuleName),
+	)
+	toastModule := toastmodule.NewAppModule(appCodec, app.ToastKeeper, app.AccountKeeper, app.BankKeeper)
+
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 
 	// Create static IBC router, add transfer route, then set and seal it
@@ -426,6 +441,7 @@ func New(
 		transferModule,
 		orbitModule,
 		monitoringModule,
+		toastModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 
@@ -473,6 +489,7 @@ func New(
 		ibctransfertypes.ModuleName,
 		orbitmoduletypes.ModuleName,
 		monitoringpmoduletypes.ModuleName,
+		toastmoduletypes.ModuleName,
 		// this line is used by starport scaffolding # stargate/app/initGenesis
 	)
 
@@ -497,6 +514,7 @@ func New(
 		transferModule,
 		orbitModule,
 		monitoringModule,
+		toastModule,
 		// this line is used by starport scaffolding # stargate/app/appModule
 	)
 	app.sm.RegisterStoreDecoders()
@@ -687,6 +705,7 @@ func initParamsKeeper(appCodec codec.BinaryCodec, legacyAmino *codec.LegacyAmino
 	paramsKeeper.Subspace(ibchost.ModuleName)
 	paramsKeeper.Subspace(orbitmoduletypes.ModuleName)
 	paramsKeeper.Subspace(monitoringpmoduletypes.ModuleName)
+	paramsKeeper.Subspace(toastmoduletypes.ModuleName)
 	// this line is used by starport scaffolding # stargate/app/paramSubspace
 
 	return paramsKeeper

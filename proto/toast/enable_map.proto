@@ -1,0 +1,11 @@
+syntax = "proto3";
+package lubtd.orbit.toast;
+
+option go_package = "github.com/lubtd/orbit/x/toast/types";
+
+message EnableMap {
+  string address = 1; 
+  bool enabled = 2; 
+  
+}
+

@@ -61,3 +61,10 @@ func (k Keeper) GetAllEnableMap(ctx sdk.Context) (list []types.EnableMap) {
 
 	return
 }
+
+func (k Keeper) Enable(ctx sdk.Context, address string) {
+	k.SetEnableMap(ctx, types.EnableMap{
+		Address: address,
+		Enabled: true,
+	})
+}

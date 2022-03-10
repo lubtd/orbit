@@ -307,6 +307,15 @@ func New(
 	app.BankKeeper = bankkeeper.NewBaseKeeper(
 		appCodec, keys[banktypes.StoreKey], app.AccountKeeper, app.GetSubspace(banktypes.ModuleName), app.ModuleAccountAddrs(),
 	)
+
+	app.ToastKeeper = *toastmodulekeeper.NewKeeper(
+		appCodec,
+		keys[toastmoduletypes.StoreKey],
+		keys[toastmoduletypes.MemStoreKey],
+		app.GetSubspace(toastmoduletypes.ModuleName),
+	)
+	toastModule := toastmodule.NewAppModule(appCodec, app.ToastKeeper, app.AccountKeeper, app.BankKeeper)
+
 	stakingKeeper := stakingkeeper.NewKeeper(
 		appCodec, keys[stakingtypes.StoreKey], app.AccountKeeper, app.BankKeeper, app.GetSubspace(stakingtypes.ModuleName),
 	)
@@ -331,7 +340,11 @@ func New(
 	// register the staking hooks
 	// NOTE: stakingKeeper above is passed by reference, so that it will contain these hooks
 	app.StakingKeeper = *stakingKeeper.SetHooks(
-		stakingtypes.NewMultiStakingHooks(app.DistrKeeper.Hooks(), app.SlashingKeeper.Hooks()),
+		stakingtypes.NewMultiStakingHooks(
+			app.DistrKeeper.Hooks(),
+			app.SlashingKeeper.Hooks(),
+			app.ToastKeeper.NewDelegationHook(1),
+		),
 	)
 
 	// ... other modules keepers
@@ -391,14 +404,6 @@ func New(
 		scopedMonitoringKeeper,
 	)
 	monitoringModule := monitoringpmodule.NewAppModule(appCodec, app.MonitoringKeeper, app.AccountKeeper, app.BankKeeper)
-
-	app.ToastKeeper = *toastmodulekeeper.NewKeeper(
-		appCodec,
-		keys[toastmoduletypes.StoreKey],
-		keys[toastmoduletypes.MemStoreKey],
-		app.GetSubspace(toastmoduletypes.ModuleName),
-	)
-	toastModule := toastmodule.NewAppModule(appCodec, app.ToastKeeper, app.AccountKeeper, app.BankKeeper)
 
 	// this line is used by starport scaffolding # stargate/app/keeperDefinition
 

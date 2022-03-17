@@ -30,12 +30,14 @@ def rewards(lastBlockHeight, selfDelegationVal1, selfDelegationVal2, selfDelegat
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run(['spnd tx reward set-rewards 1 50000v/1/orbit {} --from alice -y'.format(lastBlockHeight)],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx profile add-validator-operator-address spn1aqn8ynvr3jmq67879qulzrwhchq5dtrvtx0nhe  --from joe -y'],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx profile add-validator-operator-address spn1pkdk6m2nh77nlaep84cylmkhjder3arey7rll5  --from steve -y'],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx profile add-validator-operator-address spn1twckcceyw43da9j247pfs3yhqsv25j38grh68q --from olivia -y'],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
+    # subprocess.run(['spnd tx profile add-validator-operator-address spn15rz2rwnlgr7nf6eauz52usezffwrxc0m7fezqe  --from bob --sign-mode amino-json'],
+    #                shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # subprocess.run(['spnd tx profile add-validator-operator-address spn1mhyps2hlkm0nz6k2puumn69928cnvgg43zlrg7  --from carol --sign-mode amino-json'],
+    #                shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # subprocess.run(['spnd tx profile add-validator-operator-address spn1hmx8eakt2948szjgmksvpv9ha0q9s6w08ppedf --from dave --sign-mode amino-json'],
+    #                shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
     subprocess.run(['spnd tx launch request-add-validator 1 ./node1/config/gentx/gentx.json "Q5D7koejne/P2F1iIcSSVo6M4siL5anwHH7iopX66ps=" {} aaa foo.com --validator-address spn1aqn8ynvr3jmq67879qulzrwhchq5dtrvtx0nhe --from alice -y'.format(selfDelegationVal1)],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     subprocess.run(['spnd tx launch request-add-validator 1 ./node2/config/gentx/gentx.json "JzzB4Kr09x3k1MdatVL7MBMrZUn0D3Lx9AK+nHWjbq0=" {} aaa foo.com --validator-address spn1pkdk6m2nh77nlaep84cylmkhjder3arey7rll5 --from alice -y'.format(selfDelegationVal2)],
@@ -46,7 +48,7 @@ def rewards(lastBlockHeight, selfDelegationVal1, selfDelegationVal2, selfDelegat
     # subprocess.run(['spnd tx launch request-add-validator 1 ./node3/config/gentx/gentx.json "FyTmyvZhwRjwqhY6eWykTfiE+0mwe+U0aSo3ti8DCW8=" 16000000stake aaa foo.com --validator-address spn1ezptsm3npn54qx9vvpah4nymre59ykr9exx2ul --from alice -y'],
     #                shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    subprocess.run(['spnd tx launch trigger-launch 1 100000 --from alice -y'],
+    subprocess.run(['spnd tx launch trigger-launch 1 5 --from alice -y'],
                    shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def saveGenesis(genesis):

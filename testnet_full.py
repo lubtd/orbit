@@ -25,7 +25,7 @@ parser.add_argument('--spn_revision_height',
                     )
 parser.add_argument('--last_block_height',
                     type=int,
-                    default=50,
+                    default=30,
                     help='Last block height for monitoring packet forwarding',
                     )
 parser.add_argument('--max_validator',
@@ -105,4 +105,4 @@ os.system('spnd tx monitoring-consumer create-client 1 cs.yaml vs.yaml --unbondi
 
 # Perform IBC connection
 os.system('hermes -c ./hermes/config.toml create connection spn-1 --client-a 07-tendermint-0 --client-b 07-tendermint-0')
-os.system('hermes -c ./hermes/config.toml create channel spn-1 --connection-a connection-0 --port-a monitoring --port-b monitoring -o ordered')
+os.system('hermes -c ./hermes/config.toml create channel spn-1 --connection-a connection-0 --port-a monitoring --port-b monitoring -o ordered --channel-version monitoring-1')

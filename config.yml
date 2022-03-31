@@ -23,7 +23,7 @@ genesis:
   app_state:
     monitoringp:
       params:
-        debugMode: true
+        debugMode: false
         lastBlockHeight: 100
         consumerChainID: "spn-1"
         consumerConsensusState:

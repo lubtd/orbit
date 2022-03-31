@@ -1,7 +1,7 @@
 import os
 import argparse
 import time
-from testnet import rewards, start
+from testnet import rewards, start, cmd
 
 parser = argparse.ArgumentParser(description='Start a testnet and connect it for reward')
 parser.add_argument('--spn_chain_id',
@@ -75,7 +75,7 @@ rewards(
 )
 print('rewards initialized')
 
-os.system('spnd q ibc client self-consensus-state --height 2 > spncs.yaml')
+cmd('spnd q ibc client self-consensus-state --height 2 > spncs.yaml')
 
 # Start the testnet
 print('start network')
@@ -99,10 +99,10 @@ time.sleep(10)
 
 # Create verified IBC client on SPN
 print('create verified client')
-os.system('orbitd q tendermint-validator-set 2 --node "tcp://localhost:26659" > vs.yaml')
-os.system('orbitd q ibc client self-consensus-state --height 2 --node "tcp://localhost:26659" > cs.yaml')
-os.system('spnd tx monitoring-consumer create-client 1 cs.yaml vs.yaml --unbonding-period {} --revision-height 2 --from alice -y'.format(unbondingTime))
+cmd('orbitd q tendermint-validator-set 2 --node "tcp://localhost:26659" > vs.yaml')
+cmd('orbitd q ibc client self-consensus-state --height 2 --node "tcp://localhost:26659" > cs.yaml')
+cmd('spnd tx monitoring-consumer create-client 1 cs.yaml vs.yaml --unbonding-period {} --revision-height 2 --from alice -y'.format(unbondingTime))
 
 # Perform IBC connection
-os.system('hermes -c ./hermes/config.toml create connection spn-1 --client-a 07-tendermint-0 --client-b 07-tendermint-0')
-os.system('hermes -c ./hermes/config.toml create channel spn-1 --connection-a connection-0 --port-a monitoring --port-b monitoring -o ordered --channel-version monitoring-1')
+cmd('hermes -c ./hermes/config.toml create connection spn-1 --client-a 07-tendermint-0 --client-b 07-tendermint-0')
+cmd('hermes -c ./hermes/config.toml create channel spn-1 --connection-a connection-0 --port-a monitoring --port-b monitoring -o ordered --channel-version monitoring-1')

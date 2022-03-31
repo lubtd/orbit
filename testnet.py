@@ -3,6 +3,12 @@ import json
 import subprocess
 import yaml
 
+def cmd(command):
+    subprocess.run([command], shell=True, check=True)
+
+def cmdDevnull(command):
+    subprocess.run([command], shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+
 def clear():
     os.system("rm ./node1/config/write-file-atomic-*")
     os.system("rm ./node2/config/write-file-atomic-*")
@@ -20,36 +26,37 @@ def clear():
     os.system("rm ./node3/config/addrbook.json")
 
 def rewards(lastBlockHeight, selfDelegationVal1, selfDelegationVal2, selfDelegationVal3):
-    subprocess.run(['spnd tx profile create-coordinator --from alice -y'],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx launch create-chain orbit-1 orbit.com 0xaaa --from alice -y'],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx campaign create-campaign orbit 1000000orbit --from alice -y'],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx campaign mint-vouchers 1 50000orbit --from alice -y'],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx reward set-rewards 1 50000v/1/orbit {} --from alice -y'.format(lastBlockHeight)],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    cmdDevnull('spnd tx profile create-coordinator --from alice -y')
+    cmdDevnull('spnd tx launch create-chain orbit-1 orbit.com 0xaaa --from alice -y')
+    cmdDevnull('spnd tx campaign create-campaign orbit 1000000orbit --from alice -y')
+    cmdDevnull('spnd tx campaign mint-vouchers 1 50000orbit --from alice -y')
+    cmdDevnull('spnd tx reward set-rewards 1 50000v/1/orbit {} --from alice -y'.format(lastBlockHeight))
 
-    # subprocess.run(['spnd tx profile add-validator-operator-address spn15rz2rwnlgr7nf6eauz52usezffwrxc0m7fezqe  --from bob --sign-mode amino-json'],
+    # cmdDevnull(['spnd tx profile add-validator-operator-address spn15rz2rwnlgr7nf6eauz52usezffwrxc0m7fezqe  --from bob --sign-mode amino-json'],
     #                shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    # subprocess.run(['spnd tx profile add-validator-operator-address spn1mhyps2hlkm0nz6k2puumn69928cnvgg43zlrg7  --from carol --sign-mode amino-json'],
+    # cmdDevnull(['spnd tx profile add-validator-operator-address spn1mhyps2hlkm0nz6k2puumn69928cnvgg43zlrg7  --from carol --sign-mode amino-json'],
     #                shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    # subprocess.run(['spnd tx profile add-validator-operator-address spn1hmx8eakt2948szjgmksvpv9ha0q9s6w08ppedf --from dave --sign-mode amino-json'],
+    # cmdDevnull(['spnd tx profile add-validator-operator-address spn1hmx8eakt2948szjgmksvpv9ha0q9s6w08ppedf --from dave --sign-mode amino-json'],
     #                shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
-    subprocess.run(['spnd tx launch request-add-validator 1 ./node1/config/gentx/gentx.json "Q5D7koejne/P2F1iIcSSVo6M4siL5anwHH7iopX66ps=" {} aaa foo.com --validator-address spn1aqn8ynvr3jmq67879qulzrwhchq5dtrvtx0nhe --from alice -y'.format(selfDelegationVal1)],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx launch request-add-validator 1 ./node2/config/gentx/gentx.json "JzzB4Kr09x3k1MdatVL7MBMrZUn0D3Lx9AK+nHWjbq0=" {} aaa foo.com --validator-address spn1pkdk6m2nh77nlaep84cylmkhjder3arey7rll5 --from alice -y'.format(selfDelegationVal2)],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-    subprocess.run(['spnd tx launch request-add-validator 1 ./node3/config/gentx/gentx.json "4TwlBGJhu4ZDRBDK57GiFyAFafDAapa6nVQ0VvG5rjA=" {} aaa foo.com --validator-address spn1twckcceyw43da9j247pfs3yhqsv25j38grh68q --from alice -y'.format(selfDelegationVal3)],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    gentx1 = './node1/config/gentx/gentx.json'
+    gentx2 = './node2/config/gentx/gentx.json'
+    gentx3 = './node3/config/gentx/gentx.json'
+    pub1 = '"Q5D7koejne/P2F1iIcSSVo6M4siL5anwHH7iopX66ps="'
+    pub2 = '"JzzB4Kr09x3k1MdatVL7MBMrZUn0D3Lx9AK+nHWjbq0="'
+    pub3 = '"4TwlBGJhu4ZDRBDK57GiFyAFafDAapa6nVQ0VvG5rjA="'
+    val1 = 'spn1aqn8ynvr3jmq67879qulzrwhchq5dtrvtx0nhe'
+    val2 = 'spn1pkdk6m2nh77nlaep84cylmkhjder3arey7rll5'
+    val3 = 'spn1twckcceyw43da9j247pfs3yhqsv25j38grh68q'
 
-    # subprocess.run(['spnd tx launch request-add-validator 1 ./node3/config/gentx/gentx.json "FyTmyvZhwRjwqhY6eWykTfiE+0mwe+U0aSo3ti8DCW8=" 16000000stake aaa foo.com --validator-address spn1ezptsm3npn54qx9vvpah4nymre59ykr9exx2ul --from alice -y'],
-    #                shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    cmdDevnull('spnd tx launch request-add-validator 1 {} {} {} aaa foo.com --validator-address {} --from alice -y'.format(gentx1, pub1, selfDelegationVal1, val1)),
+    cmdDevnull('spnd tx launch request-add-validator 1 {} {} {} aaa foo.com --validator-address {} --from alice -y'.format(gentx2, pub2, selfDelegationVal2, val2)),
+    cmdDevnull('spnd tx launch request-add-validator 1 {} {} {} aaa foo.com --validator-address {} --from alice -y'.format(gentx3, pub3, selfDelegationVal3, val3)),
 
-    subprocess.run(['spnd tx launch trigger-launch 1 5 --from alice -y'],
-                   shell=True, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+    # Uncomment for testing incomplete validator set
+    # cmdDevnull('spnd tx launch request-add-validator 1 ./node3/config/gentx/gentx.json "FyTmyvZhwRjwqhY6eWykTfiE+0mwe+U0aSo3ti8DCW8=" 16000000stake aaa foo.com --validator-address spn1ezptsm3npn54qx9vvpah4nymre59ykr9exx2ul --from alice -y')
+
+    cmdDevnull('spnd tx launch trigger-launch 1 5 --from alice -y')
 
 def saveGenesis(genesis):
     with open('./node1/config/genesis.json', 'w', encoding='utf-8') as f:
@@ -112,15 +119,15 @@ def start(
     genesis['app_state']['staking']['params']['unbonding_time'] = str(unbondingTime)+"s"
 
     # Create the gentxs
-    os.system('orbitd gentx joe {} --chain-id {} --moniker="joe" --home ./node1 --output-document ./gentx1.json'.format(selfDelegationVal1, chainID))
+    cmdDevnull('orbitd gentx joe {} --chain-id {} --moniker="joe" --home ./node1 --output-document ./gentx1.json'.format(selfDelegationVal1, chainID))
     gentx1File = open('./gentx1.json')
     gentx1 = json.load(gentx1File)
 
-    os.system('orbitd gentx steve {} --chain-id {} --moniker="steve" --home ./node2 --output-document ./gentx2.json'.format(selfDelegationVal2, chainID))
+    cmdDevnull('orbitd gentx steve {} --chain-id {} --moniker="steve" --home ./node2 --output-document ./gentx2.json'.format(selfDelegationVal2, chainID))
     gentx2File = open('./gentx2.json')
     gentx2 = json.load(gentx2File)
 
-    os.system('orbitd gentx olivia {} --chain-id {} --moniker="olivia" --home ./node3 --output-document ./gentx3.json'.format(selfDelegationVal3, chainID))
+    cmdDevnull('orbitd gentx olivia {} --chain-id {} --moniker="olivia" --home ./node3 --output-document ./gentx3.json'.format(selfDelegationVal3, chainID))
     gentx3File = open('./gentx3.json')
     gentx3 = json.load(gentx3File)
 

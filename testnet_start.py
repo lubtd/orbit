@@ -8,9 +8,6 @@ parser.add_argument('--spn_chain_id',
 parser.add_argument('--orbit_chain_id',
                     help='Chain ID on Orbit',
                     default='orbit-1')
-parser.add_argument('--debug',
-                    action='store_true',
-                    help='Set debug mode for module')
 parser.add_argument('--spn_unbonding_period',
                     type=int,
                     default=1000,
@@ -51,7 +48,6 @@ parser.add_argument('--unbonding_time',
 
 # Parse params
 args = parser.parse_args()
-debugMode = args.debug
 spnChainID = args.spn_chain_id
 chainID = args.orbit_chain_id
 spnUnbondingPeriod = args.spn_unbonding_period
@@ -64,7 +60,7 @@ selfDelegationVal3 = args.self_delegation_3
 unbondingTime = args.unbonding_time
 
 start(
-    debugMode,
+    False,
     spnChainID,
     chainID,
     spnUnbondingPeriod,
